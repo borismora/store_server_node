@@ -1,0 +1,17 @@
+{
+  "name": "store_server_node",
+  "version": "1.0.0",
+  "description": "Store Server with Node JS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "store",
+    "JS",
+    "javascript",
+    "Express"
+  ],
+  "author": "Boris Mora",
+  "license": "ISC"
+}
