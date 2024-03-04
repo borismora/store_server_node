@@ -1,15 +1,12 @@
 "use strict";
 
-const DataTypes = require("sequelize");
-
 module.exports = {
   up: (queryInterface, Sequelize) =>
     queryInterface.createTable("Users", {
       id: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.literal('gen_random_uuid()'),
         allowNull: false,
-        autoIncrement: false,
         primaryKey: true,
       },
       name: {
