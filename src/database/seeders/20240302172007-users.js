@@ -12,14 +12,14 @@ module.exports = {
         {
           name: faker.internet.userName(),
           email: faker.internet.email(),
-          password_hash: await bcrypt.hash(faker.internet.password(), 8),
+          password_hash: await bcrypt.hash('123456', 8),
           createdAt: new Date(),
           updatedAt: new Date()
         },
         {
           name: faker.internet.userName(),
           email: faker.internet.email(),
-          password_hash: await bcrypt.hash(faker.internet.password(), 8),
+          password_hash: await bcrypt.hash('123456', 8),
           createdAt: new Date(),
           updatedAt: new Date()
         },

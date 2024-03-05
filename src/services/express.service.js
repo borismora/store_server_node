@@ -13,6 +13,7 @@ const routeFiles = fs
 
 let server;
 let routes = [];
+const PORT = process.env.PORT || 3000;
 
 const expressService = {
   init: async () => {
@@ -30,8 +31,8 @@ const expressService = {
       server.use(bodyParser.json());
       server.use(routes);
       server.use(globalErrorHandler);
-      server.listen(process.env.SERVER_PORT);
-      console.log("[EXPRESS] Express initialized");
+      server.listen(PORT);
+      console.log("[EXPRESS] Express initialized - Listening on http://localhost:${PORT}`");
     } catch (error) {
       console.log("[EXPRESS] Error during express service initialization");
       throw error;
