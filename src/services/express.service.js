@@ -32,7 +32,7 @@ const expressService = {
       server.use(routes);
       server.use(globalErrorHandler);
       server.listen(PORT);
-      console.log("[EXPRESS] Express initialized - Listening on http://localhost:${PORT}`");
+      console.log(`[EXPRESS] Express initialized - Listening on http://localhost:${PORT}`);
     } catch (error) {
       console.log("[EXPRESS] Error during express service initialization");
       throw error;

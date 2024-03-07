@@ -5,11 +5,12 @@ class User extends Model {
   static init(sequelize) {
     super.init(
       {
-        name: {
+        id: {
           type: Sequelize.UUIDV4,
           defaultValue: Sequelize.UUIDV4,
           primaryKey: true
         },
+        name: Sequelize.STRING,
         email: Sequelize.STRING,
         password: Sequelize.VIRTUAL, //When it is VIRTUAL it does not exist in the database
         password_hash: Sequelize.STRING,
