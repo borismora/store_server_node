@@ -6,6 +6,7 @@ import {
   UnauthorizedError,
   ValidationError,
 } from "../utils/ApiError";
+import passport from "passport";
 
 let loginController = {
   login: async (req, res, next) => {

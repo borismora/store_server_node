@@ -2,6 +2,9 @@ import express from "express";
 import fs from "fs";
 import bodyParser from "body-parser";
 import globalErrorHandler from "../middlewares/errorHandler.middleware";
+import passport from "../config/passport";
+import session from "express-session";
+
 /*
   body-parser: Parse incoming request bodies in a middleware before your handlers, 
   available under the req.body property.
@@ -28,6 +31,14 @@ const expressService = {
       }
 
       server = express();
+
+      server.use(session({
+        secret: process.env.SESSION_SECRET,
+        resave: true,
+        saveUninitialized: true,
+      }));
+      server.use(passport.initialize());
+      server.use(passport.session());
       server.use(bodyParser.json());
       server.use(routes);
       server.use(globalErrorHandler);
