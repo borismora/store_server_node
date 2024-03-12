@@ -4,6 +4,7 @@ import bodyParser from "body-parser";
 import globalErrorHandler from "../middlewares/errorHandler.middleware";
 import passport from "../config/passport";
 import session from "express-session";
+import jwtStrategy from "../config/jwtStrategy";
 
 /*
   body-parser: Parse incoming request bodies in a middleware before your handlers, 
@@ -37,8 +38,13 @@ const expressService = {
         resave: true,
         saveUninitialized: true,
       }));
+
       server.use(passport.initialize());
       server.use(passport.session());
+
+      // Configuración de Passport con estrategia JWT
+      passport.use('jwt', jwtStrategy);
+
       server.use(bodyParser.json());
       server.use(routes);
       server.use(globalErrorHandler);

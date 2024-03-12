@@ -1,12 +1,11 @@
-import * as Yup from "yup";
-import User from "../models/User";
 import JwtService from "../services/jwt.service";
+import passport from "passport";
+import jwt from 'jsonwebtoken';
+import * as Yup from "yup";
 import {
   BadRequestError,
-  UnauthorizedError,
   ValidationError,
 } from "../utils/ApiError";
-import passport from "passport";
 
 let loginController = {
   login: async (req, res, next) => {
@@ -18,17 +17,26 @@ let loginController = {
 
       if (!(await schema.isValid(req.body))) throw new ValidationError();
 
-      let { email, password } = req.body;
+      passport.authenticate('local', {
+        session: false,
+      }, (err, user) => {
+        if (err || !user) {
+          throw new BadRequestError();
+        }
 
-      const user = await User.findOne({ where: { email } });
+        req.login(user, { session: false }, (err) => {
+          if (err) {
+            res.send(err);
+          }
 
-      if (!user) throw new BadRequestError();
+          // Generate a signed son web token with the contents of user
+          const token = jwt.sign(
+            user.toJSON(), process.env.SERVER_JWT_SECRET, { expiresIn: '1h' }
+          );
 
-      if (!(await user.checkPassword(password))) throw new UnauthorizedError();
-
-      const token = JwtService.jwtSign(user.id);
-
-      return res.status(200).json({ user, token });
+          return res.json({ user, token });
+        });
+      })(req, res);
     } catch (error) {
       next(error);
     }

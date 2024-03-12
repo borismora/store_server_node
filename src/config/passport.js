@@ -2,21 +2,24 @@ import passport from 'passport';
 import LocalStrategy from 'passport-local';
 import GoogleStrategy from 'passport-google-oauth20';
 import FacebookStrategy from 'passport-facebook';
-import 'dotenv/config';
-import { User } from '../models/User';
+import User from '../models/User';
+import dotenv from 'dotenv';
+import { UnauthorizedError } from "../utils/ApiError";
+
+dotenv.config();
 
 // Configuración de Passport Local
 passport.use(new LocalStrategy(
   {
-    usernameField: 'username',
+    usernameField: 'email',
     passwordField: 'password',
   },
-  async (username, password, done) => {
+  async (email, password, done) => {
     try {
-      const user = await User.findOne({ where: { username: username } });
+      const user = await User.findOne({ where: { email: email } })
 
-      if (!user || !user.validPassword(password)) {
-        return done(null, false, { message: 'Nombre de usuario o contraseña incorrectos' });
+      if (!user || !user.checkPassword(password)) {
+        throw new UnauthorizedError();
       }
 
       return done(null, user);

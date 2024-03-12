@@ -1,4 +1,5 @@
 import { Router } from "express";
+import passport from "passport";
 
 import loginController from "../controllers/login.controller";
 import authMiddleware from "../middlewares/auth.middleware";
@@ -10,8 +11,12 @@ loginRoutes.get('/logout', (req, res) => {
   req.logout();
   res.redirect('/');
 });
-loginRoutes.get('/profile', (req, res) => {
+loginRoutes.get('/profile', passport.authenticate('jwt', { session: false }), (req, res) => {
   res.send('Bienvenido a tu perfil');
+});
+loginRoutes.get('/logout', (req, res) => {
+  req.logout();
+  res.redirect('/');
 });
 
 export { loginRoutes };
