@@ -1,7 +1,7 @@
 import JwtService from "../services/jwt.service";
-import {BadTokenError} from "../utils/ApiError"
+import User from "../models/User";
 
-const authMiddleware = async (req, res, next) => {
+const requireAuth = async (req, res, next) => {
   try {
     if (process.env.SERVER_JWT === "false") return next();
 
@@ -12,9 +12,24 @@ const authMiddleware = async (req, res, next) => {
     req.userId = decoded;
 
     return next();
-  } catch (error) {
-    next(new BadTokenError())
+  } catch {
+    res.redirect('/login');
   }
 };
 
-export default authMiddleware;
+// check current user
+const checkUser = async (req, res, next) => {
+  const token = req.cookies.jwt;
+  if (token) {
+    const decoded = JwtService.jwtVerify(token);
+    let user = await User.findById(decoded.id);
+
+    res.locals.user = user;
+    next();
+  } else {
+    res.locals.user = null;
+    next();
+  }
+};
+
+export { requireAuth, checkUser };
