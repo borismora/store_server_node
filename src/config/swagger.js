@@ -3,19 +3,19 @@ import swaggerUi from 'swagger-ui-express';
 
 const options = {
   swaggerDefinition: {
-    openapi: '3.0.0',
+    openapi: '3.1.0',
     info: {
-      title: 'Nombre de tu API',
+      title: 'NodeJS Store API Example',
       version: '1.0.0',
-      description: 'Descripción de tu API',
+      description: 'Example of an API with Express, Sequelize, Passport, JWT, Swagger, etc.',
     },
     servers: [
       {
-        url: 'http://localhost:3000', // Reemplaza con la URL de tu servidor
+        url: process.env.SERVER_URL || 'http://localhost:3000',
       },
     ],
   },
-  apis: ['path/to/routes/*.js'], // Ruta a tus archivos de definición de ruta
+  apis: ['./src/routes/*.js'],
 };
 
 const specs = swaggerJsdoc(options);
