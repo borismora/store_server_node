@@ -16,7 +16,7 @@ const JwtService = {
 
       jwtidCounter = jwtidCounter + 1;
       return jwt.sign({ payload }, process.env.SERVER_JWT_SECRET, {
-        expiresIn: Number(process.env.SERVER_JWT_TIMEOUT),
+        expiresIn: Number(process.env.SERVER_JWT_TIMEOUT) || 3600,
         jwtid: jwtidCounter + "",
       });
     } catch (error) {

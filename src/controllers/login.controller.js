@@ -75,6 +75,10 @@ let loginController = {
       next(error);
     }
   },
+
+  profile: async (req, res) => {
+    res.json(req.user);
+  },
 };
 
 export default loginController;
