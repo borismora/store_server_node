@@ -114,25 +114,13 @@ loginRoutes.post("/login", loginController.login);
  *                 message:
  *                   type: string
  *                   description: Message indicating successful logout.
- *       401:
- *         description: Unauthorized
  *       500:
  *         description: Internal Server Error
  */
 loginRoutes.get('/logout', loginController.logout);
 
-loginRoutes.get("/secret", passport.authenticate('jwt', { session: false }), function (req, res) {
-  res.json({ message: "Success!" });
-});
-
 loginRoutes.get('/protected', authMiddleware, (req, res) => {
   res.json({ message: 'You are authorized to access this resource' });
 });
-
-loginRoutes.get('/profile', authMiddleware, loginController.profile);
-//loginRoutes.get('/logout', (req, res) => {
-//  req.logout();
-//  res.redirect('/');
-//});
 
 export { loginRoutes };
