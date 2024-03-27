@@ -5,6 +5,7 @@ import globalErrorHandler from "../middlewares/errorHandler.middleware";
 import passport from "../config/passport";
 import session from "express-session";
 import jwtStrategy from "../config/jwtStrategy";
+import swaggerConfig from "../config/swagger";
 
 /*
   body-parser: Parse incoming request bodies in a middleware before your handlers, 
@@ -33,16 +34,17 @@ const expressService = {
 
       server = express();
 
+      swaggerConfig(server); // Swagger config
+
       server.use(session({
         secret: process.env.SESSION_SECRET,
         resave: true,
         saveUninitialized: true,
       }));
 
+      // Passport config
       server.use(passport.initialize());
       server.use(passport.session());
-
-      // Configuración de Passport con estrategia JWT
       passport.use('jwt', jwtStrategy);
 
       server.use(bodyParser.json());

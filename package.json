@@ -20,7 +20,8 @@
     "migrate:undo": "npx sequelize-cli db:migrate:undo",
     "migrate:undo:all": "npx sequelize-cli db:migrate:undo:all",
     "seed:up": "npx sequelize-cli db:seed:all",
-    "seed:undo": "npx sequelize-cli db:seed:undo:all"
+    "seed:undo": "npx sequelize-cli db:seed:undo:all",
+    "model:generate": "npx sequelize-cli model:generate --name"
   },
   "dependencies": {
     "bcrypt": "5.1.1",
@@ -40,6 +41,8 @@
     "passport-local": "1.0.0",
     "pg": "8.11.3",
     "sequelize": "6.37.1",
+    "swagger-jsdoc": "6.2.8",
+    "swagger-ui-express": "5.0.0",
     "uuid": "9.0.1",
     "yup": "1.3.3"
   },
