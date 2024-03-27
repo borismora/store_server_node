@@ -8,7 +8,7 @@ import { UnauthorizedError } from "../utils/ApiError";
 
 dotenv.config();
 
-// Configuración de Passport Local
+// Configuration of passport Local
 passport.use(new LocalStrategy(
   {
     usernameField: 'email',
@@ -29,7 +29,7 @@ passport.use(new LocalStrategy(
   }
 ));
 
-// Configuración de Passport Google
+// Configuration of passport Google
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
@@ -55,7 +55,7 @@ passport.use(new GoogleStrategy({
   }
 ));
 
-// Configuración de Passport Facebook
+// Configuration of passport Facebook
 passport.use(new FacebookStrategy({
   clientID: process.env.FACEBOOK_APP_ID,
   clientSecret: process.env.FACEBOOK_APP_SECRET,
@@ -81,7 +81,7 @@ passport.use(new FacebookStrategy({
   }
 ));
 
-// Serialización del usuario para la sesión
+// Serialize and Deserialize user
 passport.serializeUser((user, done) => {
   done(null, user.id);
 });
